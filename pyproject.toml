@@ -1,0 +1,22 @@
+[project]
+name = "brick-breaker"
+version = "0.1.0"
+description = "Brick breaker game with levels, power-ups, and persisted high scores"
+requires-python = ">=3.9"
+dependencies = ["pygame>=2.1"]
+
+[project.scripts]
+brick-breaker = "brick_breaker.game:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
