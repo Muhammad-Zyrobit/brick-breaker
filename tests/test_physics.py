@@ -12,17 +12,15 @@ from brick_breaker.physics import (
 
 class TestReflectOffBrick:
     def test_bounces_vertically_on_top_hit(self):
-        # Ball approaching from above, mostly overlapping vertically less
-        # than horizontally -> should flip dy, not dx.
-        ball = Rect(x=10, y=18, width=10, height=10)  # bottom at 28
-        brick = Rect(x=0, y=20, width=30, height=10)  # top at 20 -> small y overlap
+        ball = Rect(x=10, y=18, width=10, height=10)  
+        brick = Rect(x=0, y=20, width=30, height=10)  
         velocity = Velocity(dx=3, dy=4)
         result = reflect_off_brick(ball, velocity, brick)
         assert result == Velocity(dx=3, dy=-4)
 
     def test_bounces_horizontally_on_side_hit(self):
-        ball = Rect(x=18, y=10, width=10, height=10)  # right at 28
-        brick = Rect(x=20, y=0, width=10, height=30)  # left at 20 -> small x overlap
+        ball = Rect(x=18, y=10, width=10, height=10) 
+        brick = Rect(x=20, y=0, width=10, height=30)  
         velocity = Velocity(dx=4, dy=3)
         result = reflect_off_brick(ball, velocity, brick)
         assert result == Velocity(dx=-4, dy=3)
@@ -56,8 +54,6 @@ class TestReflectOffWalls:
         assert reflect_off_walls(ball, velocity, window_width=500, window_height=500) == velocity
 
     def test_does_not_double_bounce_moving_away_from_wall(self):
-        # Ball touching the left edge but already moving right shouldn't
-        # get flipped again.
         ball = Rect(x=0, y=100, width=10, height=10)
         velocity = Velocity(dx=3, dy=2)
         assert reflect_off_walls(ball, velocity, window_width=500, window_height=500) == velocity
@@ -76,25 +72,25 @@ class TestOutOfBounds:
 class TestBounceOffPaddle:
     def test_center_hit_goes_straight_up(self):
         paddle = Rect(x=200, y=480, width=100, height=15)
-        ball = Rect(x=245, y=470, width=10, height=10)  # centered on paddle
+        ball = Rect(x=245, y=470, width=10, height=10)  
         result = bounce_off_paddle(ball, paddle, base_speed=4, max_horizontal_speed=6)
         assert result.dx == 0
         assert result.dy == -4
 
     def test_left_edge_hit_bounces_left(self):
         paddle = Rect(x=200, y=480, width=100, height=15)
-        ball = Rect(x=195, y=470, width=10, height=10)  # near paddle's left edge
+        ball = Rect(x=195, y=470, width=10, height=10)  
         result = bounce_off_paddle(ball, paddle, base_speed=4, max_horizontal_speed=6)
         assert result.dx < 0
 
     def test_right_edge_hit_bounces_right(self):
         paddle = Rect(x=200, y=480, width=100, height=15)
-        ball = Rect(x=295, y=470, width=10, height=10)  # near paddle's right edge
+        ball = Rect(x=295, y=470, width=10, height=10)  
         result = bounce_off_paddle(ball, paddle, base_speed=4, max_horizontal_speed=6)
         assert result.dx > 0
 
     def test_horizontal_speed_never_exceeds_max(self):
         paddle = Rect(x=200, y=480, width=100, height=15)
-        ball = Rect(x=1000, y=470, width=10, height=10)  # way off to the side, clamped
+        ball = Rect(x=1000, y=470, width=10, height=10)  
         result = bounce_off_paddle(ball, paddle, base_speed=4, max_horizontal_speed=6)
         assert abs(result.dx) <= 6
