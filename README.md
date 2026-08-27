@@ -45,7 +45,7 @@ Working through it turned up a few real issues:
 ## Installation
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Muhammad-Zyrobit/brick-breaker
 cd brick-breaker
 python -m venv .venv
 source .venv/bin/activate
